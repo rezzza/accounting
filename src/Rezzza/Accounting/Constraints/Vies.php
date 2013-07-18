@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
- * @author Sébastien HOUZÉ <s@verylastroom.com> 
+ * @author Sébastien HOUZÉ <s@verylastroom.com>
  */
 class Vies extends Constraint
 {

@@ -11,9 +11,8 @@
 namespace Rezzza\Accounting\Vat;
 
 /**
- * @author Sébastien HOUZÉ <s@verylastroom.com> 
+ * @author Sébastien HOUZÉ <s@verylastroom.com>
  */
 class InvalidCountryCodeException extends \Exception
 {
-    
 }

@@ -16,7 +16,7 @@ use \mageekguy\atoum;
 use Rezzza\Accounting\Vat\VatNumber as TestedVatNumber;
 
 /**
- * @author Sébastien HOUZÉ <s@verylastroom.com> 
+ * @author Sébastien HOUZÉ <s@verylastroom.com>
  */
 class VatNumber extends atoum\test
 {
@@ -29,7 +29,7 @@ class VatNumber extends atoum\test
             ;
     }
 
-    public function testFromString($input, $expectedOutput) 
+    public function testFromString($input, $expectedOutput)
     {
         $this
             ->if($vatNumber = new TestedVatNumber)
@@ -38,7 +38,7 @@ class VatNumber extends atoum\test
             ;
     }
 
-    public function testValidCountryCode($countryCode, $expectedCountryCode) 
+    public function testValidCountryCode($countryCode, $expectedCountryCode)
     {
         $this
             ->if($vatNumber = new TestedVatNumber)
@@ -48,7 +48,7 @@ class VatNumber extends atoum\test
         ;
     }
 
-    public function testInvalidTypeCountryCode($countryCode) 
+    public function testInvalidTypeCountryCode($countryCode)
     {
         $this
             ->if($vatNumber = new TestedVatNumber)
@@ -61,7 +61,7 @@ class VatNumber extends atoum\test
             ;
     }
 
-    public function testInvalidCountryCode($countryCode) 
+    public function testInvalidCountryCode($countryCode)
     {
         $this
             ->if($vatNumber = new TestedVatNumber)
@@ -75,7 +75,7 @@ class VatNumber extends atoum\test
             ;
     }
 
-    public function testValidNumber($number, $expectedNumber) 
+    public function testValidNumber($number, $expectedNumber)
     {
         $this
             ->if($vatNumber = new TestedVatNumber)
@@ -85,7 +85,7 @@ class VatNumber extends atoum\test
         ;
     }
 
-    public function testInvalidTypeNumber($number) 
+    public function testInvalidTypeNumber($number)
     {
         $this
             ->if($vatNumber = new TestedVatNumber)
@@ -98,7 +98,7 @@ class VatNumber extends atoum\test
             ;
     }
 
-    public function testInvalidNumber($number) 
+    public function testInvalidNumber($number)
     {
         $this
             ->if($vatNumber = new TestedVatNumber)
@@ -133,7 +133,7 @@ class VatNumber extends atoum\test
         );
     }
 
-    protected function testValidNumberDataProvider() 
+    protected function testValidNumberDataProvider()
     {
         return array(
             array('GD123', 'GD123'),

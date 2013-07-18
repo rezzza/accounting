@@ -11,8 +11,10 @@
     }],
     "require": {
         "php": ">=5.3.2",
-
         "symfony/validator": "2.4.*@dev"
+    },
+    "suggest": {
+        "php-soap": "Mandatory for usage of ViesValidator"
     },
     "require-dev": {
         "atoum/atoum": "*@dev"

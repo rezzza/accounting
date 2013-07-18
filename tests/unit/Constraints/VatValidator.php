@@ -18,11 +18,11 @@ use Symfony\Component\Validator\Validation;
 use Rezzza\Accounting\Constraints\Vat;
 
 /**
- * @author Sébastien HOUZÉ <s@verylastroom.com> 
+ * @author Sébastien HOUZÉ <s@verylastroom.com>
  */
 class VatValidator extends atoum\test
 {
-    public function testValidNumber($number) 
+    public function testValidNumber($number)
     {
         $this
             ->if($validator = Validation::createValidator())
@@ -32,7 +32,7 @@ class VatValidator extends atoum\test
             ;
     }
 
-    public function testInvalidNumber($number) 
+    public function testInvalidNumber($number)
     {
         $this
             ->if($validator = Validation::createValidator())
@@ -42,7 +42,7 @@ class VatValidator extends atoum\test
             ;
     }
 
-    protected function testValidNumberDataProvider() 
+    protected function testValidNumberDataProvider()
     {
         return array(
             'ATU12345675',
@@ -139,7 +139,7 @@ class VatValidator extends atoum\test
         );
     }
 
-    protected function testInValidNumberDataProvider() 
+    protected function testInValidNumberDataProvider()
     {
         return array(
             'ATU123456789',

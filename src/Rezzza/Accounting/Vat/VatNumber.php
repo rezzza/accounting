@@ -11,7 +11,7 @@
 namespace Rezzza\Accounting\Vat;
 
 /**
- * @author Sébastien HOUZÉ <s@verylastroom.com> 
+ * @author Sébastien HOUZÉ <s@verylastroom.com>
  */
 class VatNumber
 {
@@ -94,9 +94,9 @@ class VatNumber
 
     /**
      * @param string $countryCode
-     * @param string $number     
+     * @param string $number
      */
-    public function __construct($countryCode=null, $number=null) 
+    public function __construct($countryCode=null, $number=null)
     {
         if ($countryCode !== null && $number !== null) {
             $this->setCountryCode($countryCode);
@@ -107,7 +107,7 @@ class VatNumber
     /**
      * @return string
      */
-    public function __toString() 
+    public function __toString()
     {
         // TODO: VatNumberFormatter class to render
         return $this->getCountryCode().$this->getNumber();
@@ -116,7 +116,7 @@ class VatNumber
     /**
      * @param string $value
      */
-    public function fromString($value) 
+    public function fromString($value)
     {
         if (!is_scalar($value) && !(is_object($value) && method_exists($value, '__toString'))) {
             throw new \InvalidArgumentException('Argument must be a string or an object that can be casted into string.');
@@ -137,9 +137,9 @@ class VatNumber
     {
         return $this->countryCode;
     }
-    
+
     /**
-     * @param string $countryCode 
+     * @param string $countryCode
      */
     public function setCountryCode($countryCode)
     {
@@ -168,9 +168,9 @@ class VatNumber
     {
         return $this->number;
     }
-    
+
     /**
-     * @param string $number 
+     * @param string $number
      */
     public function setNumber($number)
     {
@@ -200,7 +200,7 @@ class VatNumber
     /**
      * @return array $patterns
      */
-    public function getPatterns() 
+    public function getPatterns()
     {
         return $this->patterns;
     }

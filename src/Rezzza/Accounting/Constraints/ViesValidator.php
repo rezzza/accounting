@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Rezzza\Accounting\Vat\VatNumber;
 
 /**
- * @author Sébastien HOUZÉ <s@verylastroom.com> 
+ * @author Sébastien HOUZÉ <s@verylastroom.com>
  */
 class ViesValidator extends ConstraintValidator
 {
@@ -34,7 +34,7 @@ class ViesValidator extends ConstraintValidator
     /**
      * {@inheritDoc}
      */
-    public function validate($value, Constraint $constraint) 
+    public function validate($value, Constraint $constraint)
     {
         if (null === $value || '' === $value) {
             return;
@@ -72,6 +72,10 @@ class ViesValidator extends ConstraintValidator
     protected function getSoapClient()
     {
         if (null === $this->soapClient) {
+            if (!class_exists('\SoapClient')) {
+                throw new \RuntimeException('You have to install php soap extension to use validator "'.__CLASS__.'"');
+            }
+
             $this->soapClient = new \SoapClient($this->wsdl, array(
                 'user_agent' => 'VatConstraintAgent'
             ));

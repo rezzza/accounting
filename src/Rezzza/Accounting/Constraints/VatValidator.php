@@ -17,14 +17,14 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Rezzza\Accounting\Vat\VatNumber;
 
 /**
- * @author Sébastien HOUZÉ <s@verylastroom.com> 
+ * @author Sébastien HOUZÉ <s@verylastroom.com>
  */
 class VatValidator extends ConstraintValidator
 {
     /**
      * {@inheritDoc}
      */
-    public function validate($value, Constraint $constraint) 
+    public function validate($value, Constraint $constraint)
     {
         if (null === $value || '' === $value) {
             return;
@@ -86,7 +86,7 @@ class VatValidator extends ConstraintValidator
         }
     }
 
-    private function multAdd($i, $j) 
+    private function multAdd($i, $j)
     {
         $mult = $i * $j;
         $res = 0;

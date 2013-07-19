@@ -2,6 +2,8 @@
 
 namespace Rezzza\Accounting\Operation\Amount;
 
+use Symfony\Component\Intl\Intl;
+
 use Rezzza\Accounting\Operation\OperandInterface;
 use Rezzza\Accounting\Operation\Operation;
 
@@ -24,13 +26,19 @@ class Price implements OperandInterface
     protected $currency;
 
     /**
+     * @var integer
+     */
+    private $fractionDigits;
+
+    /**
      * @param float  $value   value
      * @param string $currency currency
      */
     public function __construct($value, $currency)
     {
-        $this->value   = $value;
-        $this->currency = $currency;
+        $this->value          = (float) $value;
+        $this->currency       = (string) $currency;
+        $this->fractionDigits = Intl::getCurrencyBundle()->getFractionDigits($currency);
     }
 
     /**
@@ -38,7 +46,15 @@ class Price implements OperandInterface
      */
     public function __toString()
     {
-        return $this->value.' '.$this->currency;
+        return $this->value.Intl::getCurrencyBundle()->getCurrencySymbol($this->currency);
+    }
+
+    /**
+     * @return integer
+     */
+    public function getFractionDigits()
+    {
+        return $this->fractionDigits;
     }
 
     /**
@@ -65,10 +81,10 @@ class Price implements OperandInterface
     {
         switch($operation) {
             case Operation::SUB:
-                $value = $this->getValue() - $right->getValue();
+                $value = $this->round($this->getValue() - $right->getValue());
                 break;
             case Operation::SUM:
-                $value = $this->getValue() + $right->getValue();
+                $value = $this->round($this->getValue() + $right->getValue());
                 break;
             default:
                 throw new \LogicException(sprintf('Unsupported operation for Price operand (%s).'), $operation);
@@ -93,10 +109,10 @@ class Price implements OperandInterface
     {
         switch($operation) {
             case Operation::SUB:
-                $value = $this->getValue() / (1+($right->getValue() / 100));
+                $value = $this->round($this->getValue() / (1+($right->getValue() / 100)));
                 break;
             case Operation::SUM:
-                $value = $this->getValue() + ($this->getValue() * ($right->getValue() / 100));
+                $value = $this->round($this->getValue() + ($this->getValue() * ($right->getValue() / 100)));
                 break;
             default:
                 throw new \LogicException(sprintf('Unsupported operation for Price operand (%s).'), $operation);
@@ -125,5 +141,14 @@ class Price implements OperandInterface
     public function getCurrency()
     {
         return $this->currency;
+    }
+
+
+    /**
+     * @return float
+     */
+    private function round($value)
+    {
+        return (float) round($value, $this->getFractionDigits(), PHP_ROUND_HALF_UP);
     }
 }

@@ -19,7 +19,7 @@ class Previous extends AbstractReference implements ReferenceInterface
         $result = $this->resultsSet->end();
 
         if (!$result) {
-            throw new \LogicException('Cant fetch last reference');
+            throw new \LogicException('Can not fetch last reference.');
         }
 
         return clone $result;

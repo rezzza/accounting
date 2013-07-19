@@ -11,6 +11,24 @@ use Rezzza\Accounting\Operation\Wrapper\Factory;
 
 $f = new Factory();
 
+$priceWithTaxes = 283.94;
+$vatRate        = 19.6;
+$commissionRate = 15;
+
+$price = new Price($priceWithTaxes, 'EUR');
+
+$os = new OperationSet(
+    array(
+        'commissionExclTaxes' => new Operation($price, Operation::REMOVE, new Percentage($commissionRate)),
+        'commissionVat'       => new Operation($f->compl(new Reference\Previous()), Operation::APPEND, new Percentage($vatRate)),
+        'transferIncTaxes'    => new Operation($price, Operation::REMOVE, $f->val(new Reference\Previous()))
+    )
+);
+
+$a = $os->compute();
+echo (string) $os->getResultsSet()."\n";
+exit('ici');
+
 $price = new Price('100', 'EUR');
 
 /*$os = new Operation(

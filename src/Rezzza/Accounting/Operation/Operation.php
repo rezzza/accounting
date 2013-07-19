@@ -13,8 +13,9 @@ use Rezzza\Accounting\Operation\Wrapper\Operand;
  */
 class Operation implements OperationInterface
 {
-    CONST SUB = '-';
-    CONST SUM = '+';
+    CONST REMOVE = 'remove';
+    CONST DEDUCT = 'deduct';
+    CONST APPEND = '+';
 
     /**
      * @var OperationInterface|OperandInterface
@@ -38,7 +39,7 @@ class Operation implements OperationInterface
      */
     public function __construct($left, $operator, $right)
     {
-        $availableOperators = array(self::SUB, self::SUM);
+        $availableOperators = array(self::REMOVE, self::DEDUCT, self::APPEND);
 
         if (!in_array($operator, $availableOperators)) {
             throw new \InvalidArgumentException(sprintf('Unsupported Operator (%s). Please use one of these: %s', $operator, implode(', ', $availableOperators)));

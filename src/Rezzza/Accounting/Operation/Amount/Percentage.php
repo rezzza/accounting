@@ -16,17 +16,28 @@ class Percentage implements OperandInterface
     /**
      * @var float|int
      */
-    protected $amount;
+    protected $value;
 
     /**
-     * @param float|int $amount amount
+     * @param float|int $value value
      */
-    public function __construct($amount)
+    public function __construct($value)
     {
-        $this->amount = $amount;
+        $this->value = $value;
     }
 
-    public function compute($operation, $right)
+    /**
+     * {@inheritdoc}
+     */
+    public function __toString()
+    {
+        return $this->value.'%';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function compute($operation, OperandInterface $right)
     {
         if (!$right instanceof Percentage) {
             throw new \LogicException(sprintf('Unsupported operand (%s). Percentage operand can only be computed with another Percentage operand.'), get_class($right));
@@ -34,10 +45,10 @@ class Percentage implements OperandInterface
 
         switch($operation) {
             case Operation::SUB:
-                $value = $this->getAmount() - $right->getAmount();
+                $value = $this->getValue() - $right->getValue();
                 break;
             case Operation::SUM:
-                $value = $this->getAmount() + $right->getAmount();
+                $value = $this->getValue() + $right->getValue();
                 break;
             default:
                 throw new \LogicException(sprintf('Unsupported operation for Percentage operand (%s).'), $operation);
@@ -47,8 +58,11 @@ class Percentage implements OperandInterface
         return new Percentage($value);
     }
 
-    public function getAmount()
+    /**
+     * {@inheritdoc}
+     */
+    public function getValue()
     {
-        return $this->amount;
+        return $this->value;
     }
 }

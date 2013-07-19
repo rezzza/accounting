@@ -13,6 +13,17 @@ $f = new Factory();
 
 $price = new Price('100', 'EUR');
 
+/*$os = new Operation(
+    new Operation($price, Operation::SUB, new Percentage('10')),
+    Operation::SUM,
+    new Price('10', 'EUR')
+);
+$a = $os->compute();
+print "<pre>";
+var_dump($a);
+print "</pre>";
+exit('ici');*/
+
 $os = new OperationSet(
     array(
         new Operation($price, Operation::SUB, new Percentage('10')), // 90.9090
@@ -23,9 +34,8 @@ $os = new OperationSet(
     )
 );
 $a = $os->compute();
-print "<pre>";
-var_dump($os->getResultsSet());
-print "</pre>";
+
+echo (string) $os->getResultsSet();
 /*
 exit('ah');
 print "<pre>";

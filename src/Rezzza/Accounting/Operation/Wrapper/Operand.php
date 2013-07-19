@@ -16,7 +16,7 @@ use Rezzza\Accounting\Operation\Reference\ReferenceInterface;
  * @uses OperandInterface
  * @author Stephane PY <py.stephane1@gmail.com>
  */
-class Operand implements OperationInterface, OperandInterface
+class Operand implements OperationInterface
 {
     CONST VALUE      = 'value';
     CONST COMPLEMENT = 'complement';
@@ -32,28 +32,30 @@ class Operand implements OperationInterface, OperandInterface
     protected $operand;
 
     /**
-     * @param string           $field   field
-     * @param OperandInterface $operand operand
+     * @param string                    $field   field
+     * @param Result|ReferenceInterface $operand operand
      */
-    public function __construct($field, OperandInterface $operand)
+    public function __construct($field, $operand)
     {
         $availableFields = array(self::VALUE, self::COMPLEMENT);
 
         if (!in_array($field, $availableFields)) {
             throw new \InvalidArgumentException(sprintf('Unsupported Result attribute (%s). Please use one of these: %s.', $field, implode(', ', $availableFields)));
-        } 
+        }
+
+        if (!$operand instanceof Result && !$operand instanceof ReferenceInterface) {
+            throw new \InvalidArgumentException('Class Operation\Wrapper\Operand accepts a Operation\Amount\Result or a Operation\Reference\ReferenceInterface');
+        }
 
         $this->field   = $field;
         $this->operand = $operand;
     }
 
     /**
-     * compute the wrapper.
+     * {@inheritdoc}
      *
      * If operand is a Reference with extract it.
      * It accepts only a Result instance since it is the only one result it can wrap.
-     *
-     * @return void
      */
     public function compute()
     {
@@ -75,7 +77,7 @@ class Operand implements OperationInterface, OperandInterface
     }
 
     /**
-     * @return boolean
+     * {@inheritdoc}
      */
     public function needsResultsSet()
     {
@@ -83,7 +85,7 @@ class Operand implements OperationInterface, OperandInterface
     }
 
     /**
-     * @param OperationSetResult $resultsSet resultsSet
+     * {@inheritdoc}
      */
     public function setResultsSet(OperationSetResult $resultsSet)
     {

@@ -2,12 +2,27 @@
 
 namespace Rezzza\Accounting\Operation;
 
-class OperationSet implements OperationInterface, OperandInterface
+/**
+ * OperationSet
+ *
+ * @uses OperationInterface
+ * @author Stephane PY <py.stephane1@gmail.com>
+ */
+class OperationSet implements OperationInterface
 {
+    /**
+     * @var array<OperationInterface>
+     */
     protected $operations = array();
 
+    /**
+     * @var OperationSetResult
+     */
     protected $resultsSet;
 
+    /**
+     * @param array<OperationInterface> $operations operations
+     */
     public function __construct(array $operations)
     {
         foreach ($operations as $k=> $operation) {
@@ -15,6 +30,10 @@ class OperationSet implements OperationInterface, OperandInterface
         }
     }
 
+    /**
+     * @param OperationInterface $operation operation
+     * @param string|integer     $offset    offset
+     */
     public function add(OperationInterface $operation, $offset = null)
     {
         if (null === $offset) {
@@ -24,6 +43,11 @@ class OperationSet implements OperationInterface, OperandInterface
         }
     }
 
+    /**
+     * This operation will logs results on a ResultsSet.
+     *
+     * {@inheritdoc}
+     */
     public function compute()
     {
         if (null === $this->resultsSet) {
@@ -48,16 +72,25 @@ class OperationSet implements OperationInterface, OperandInterface
         return $this->resultsSet->end();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setResultsSet(OperationSetResult $resultsSet)
     {
         $this->resultsSet = $resultsSet;
     }
 
+    /**
+     * @return OperationSetResult
+     */
     public function getResultsSet()
     {
         return $this->resultsSet;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function needsResultsSet()
     {
         return true;

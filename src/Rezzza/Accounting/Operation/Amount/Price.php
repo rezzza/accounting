@@ -16,7 +16,7 @@ class Price implements OperandInterface
     /**
      * @var float
      */
-    protected $amount;
+    protected $value;
 
     /**
      * @var string
@@ -24,16 +24,27 @@ class Price implements OperandInterface
     protected $currency;
 
     /**
-     * @param float  $amount   amount
+     * @param float  $value   value
      * @param string $currency currency
      */
-    public function __construct($amount, $currency)
+    public function __construct($value, $currency)
     {
-        $this->amount   = $amount;
+        $this->value   = $value;
         $this->currency = $currency;
     }
 
-    public function compute($operation, $right)
+    /**
+     * {@inheritdoc}
+     */
+    public function __toString()
+    {
+        return $this->value.' '.$this->currency;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function compute($operation, OperandInterface $right)
     {
         if ($right instanceof Price) {
             return $this->computeWithPrice($operation, $right);
@@ -54,17 +65,22 @@ class Price implements OperandInterface
     {
         switch($operation) {
             case Operation::SUB:
-                $value = $this->getAmount() - $right->getAmount();
+                $value = $this->getValue() - $right->getValue();
                 break;
             case Operation::SUM:
-                $value = $this->getAmount() + $right->getAmount();
+                $value = $this->getValue() + $right->getValue();
                 break;
             default:
                 throw new \LogicException(sprintf('Unsupported operation for Price operand (%s).'), $operation);
                 break;
         }
 
-        return new Result($value, ($this->getAmount() - $value), $this->getCurrency());
+        return new Result(
+            $value,
+            ($this->getValue() - $value),
+            $this->getCurrency(),
+            (string) $this.' '.$operation.' '.(string) $right
+        );
     }
 
     /**
@@ -77,25 +93,30 @@ class Price implements OperandInterface
     {
         switch($operation) {
             case Operation::SUB:
-                $value = $this->getAmount() / (1+($right->getAmount() / 100));
+                $value = $this->getValue() / (1+($right->getValue() / 100));
                 break;
             case Operation::SUM:
-                $value = $this->getAmount() + ($this->getAmount() * ($right->getAmount() / 100));
+                $value = $this->getValue() + ($this->getValue() * ($right->getValue() / 100));
                 break;
             default:
                 throw new \LogicException(sprintf('Unsupported operation for Price operand (%s).'), $operation);
                 break;
         }
 
-        return new Result($value, ($this->getAmount() - $value), $this->getCurrency());
+        return new Result(
+            $value,
+            ($this->getValue() - $value),
+            $this->getCurrency(),
+            (string) $this.' '.$operation.' '.(string) $right
+        );
     }
 
     /**
-     * @return float
+     * {@inheritdoc}
      */
-    public function getAmount()
+    public function getValue()
     {
-        return $this->amount;
+        return $this->value;
     }
 
     /**

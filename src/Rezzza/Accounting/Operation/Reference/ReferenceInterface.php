@@ -11,7 +11,7 @@ use Rezzza\Accounting\Operation\OperationSetResult;
  * @uses OperandInterface
  * @author Stephane PY <py.stephane1@gmail.com>
  */
-interface ReferenceInterface extends OperandInterface
+interface ReferenceInterface
 {
     /**
      * Fetch the reference

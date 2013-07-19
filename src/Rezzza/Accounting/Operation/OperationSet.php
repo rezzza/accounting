@@ -37,7 +37,7 @@ class OperationSet implements OperationInterface, OperandInterface
 
             $result = $operation->compute();
 
-            // if this offset is already used on resultsSet ...
+            // if this offset is already used in resultsSet ...
             if ($this->resultsSet->has($offset)) {
                 $offset = null;
             }

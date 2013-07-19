@@ -21,7 +21,7 @@ class Operation implements OperationInterface
         $availableOperators = array(self::SUB, self::SUM);
 
         if (!in_array($operator, $availableOperators)) {
-            throw new \InvalidArgumentException(sprintf('Operator "%s" is not supported, please use one of theses: %s', $operator, implode(', ', $availableOperators)));
+            throw new \InvalidArgumentException(sprintf('Unsupported Operator (%s). Please use one of these: %s', $operator, implode(', ', $availableOperators)));
         }
 
         $this->left     = $left;

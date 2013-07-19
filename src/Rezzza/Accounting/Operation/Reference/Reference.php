@@ -30,7 +30,7 @@ class Reference extends AbstractReference implements ReferenceInterface
     public function getReference()
     {
         if (!$this->resultsSet->has($this->offset)) {
-            throw new \Exception(sprintf('Reference with offset "%s" is not exists.', $this->offset));
+            throw new \Exception(sprintf('Reference with offset "%s" does not exist.', $this->offset));
         }
 
         return clone $this->resultsSet->get($this->offset);

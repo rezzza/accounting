@@ -40,8 +40,8 @@ class Operand implements OperationInterface, OperandInterface
         $availableFields = array(self::VALUE, self::COMPLEMENT);
 
         if (!in_array($field, $availableFields)) {
-            throw new \InvalidArgumentException(sprintf('Field "%s" is not supported, please use one of theses: %s', $field, implode(', ', $availableFields)));
-        }
+            throw new \InvalidArgumentException(sprintf('Unsupported Result attribute (%s). Please use one of these: %s.', $field, implode(', ', $availableFields)));
+        } 
 
         $this->field   = $field;
         $this->operand = $operand;
@@ -61,7 +61,7 @@ class Operand implements OperationInterface, OperandInterface
             $this->operand = $this->operand->getReference();
 
             if (!$this->operand) {
-                throw new \LogicException('Operand cant be found in results set.');
+                throw new \LogicException(sprintf('Operand can not be found in results set (%s).'), $this->operand);
             }
         }
 

@@ -23,24 +23,24 @@ class Percentage implements OperandInterface
      */
     public function __construct($amount)
     {
-        $this->amount   = $amount;
+        $this->amount = $amount;
     }
 
     public function compute($operation, $right)
     {
-        if ($right instanceof Price) {
-            throw new \LogicException("Percentage accepts only a percentage in right position.");
+        if (!$right instanceof Percentage) {
+            throw new \LogicException(sprintf('Unsupported operand (%s). Percentage operand can only be computed with another Percentage operand.'), get_class($right));
         }
 
         switch($operation) {
-            case Operaiton::SUB:
+            case Operation::SUB:
                 $value = $this->getAmount() - $right->getAmount();
                 break;
-            case Operaiton::SUM:
+            case Operation::SUM:
                 $value = $this->getAmount() + $right->getAmount();
                 break;
             default:
-                throw new \LogicException(sprintf('Percentage does not accept operation "%s"', $operation));
+                throw new \LogicException(sprintf('Unsupported operation for Percentage operand (%s).'), $operation);
                 break;
         }
 

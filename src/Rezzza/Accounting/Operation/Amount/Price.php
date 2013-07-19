@@ -40,7 +40,7 @@ class Price implements OperandInterface
         } elseif ($right instanceof Percentage) {
             return $this->computeWithPercent($operation, $right);
         } else {
-            throw new \LogicException('A price can deal with a Price or a Percentage, here is '.get_class($right));
+            throw new \LogicException(sprintf('Unsupported operand (%s). Percentage operand can only be computed with Percentage or Price operands.'), get_class($right));
         }
     }
 
@@ -60,7 +60,7 @@ class Price implements OperandInterface
                 $value = $this->getAmount() + $right->getAmount();
                 break;
             default:
-                throw new \LogicException(sprintf('Percentage does not accept operation "%s"', $operation));
+                throw new \LogicException(sprintf('Unsupported operation for Price operand (%s).'), $operation);
                 break;
         }
 
@@ -83,7 +83,7 @@ class Price implements OperandInterface
                 $value = $this->getAmount() + ($this->getAmount() * ($right->getAmount() / 100));
                 break;
             default:
-                throw new \LogicException(sprintf('Percentage does not accept operation "%s"', $operation));
+                throw new \LogicException(sprintf('Unsupported operation for Price operand (%s).'), $operation);
                 break;
         }
 

@@ -26,4 +26,14 @@ interface OperandInterface
      * @return float
      */
     public function getValue();
+
+    /**
+     * @param integer $level level
+     */
+    public function setLevel($level);
+
+    /**
+     * @return integer
+     */
+    public function getLevel();
 }

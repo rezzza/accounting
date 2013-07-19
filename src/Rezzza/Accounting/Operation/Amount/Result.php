@@ -16,11 +16,6 @@ class Result extends Price implements OperandInterface
     /**
      * @var float
      */
-    protected $value;
-
-    /**
-     * @var float
-     */
     protected $complement;
 
     /**
@@ -45,14 +40,6 @@ class Result extends Price implements OperandInterface
     public function __toString()
     {
         return sprintf('%s ====> value = %s, complement = %s, currency = %s', $this->source, $this->value, $this->complement, $this->currency);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getValue()
-    {
-        return $this->value;
     }
 
     /**

@@ -10,16 +10,12 @@ use Rezzza\Accounting\Operation\Operation;
 /**
  * Price
  *
+ * @uses AbstractOperand
  * @uses OperandInterface
  * @author Stephane PY <py.stephane1@gmail.com>
  */
-class Price implements OperandInterface
+class Price extends AbstractOperand implements OperandInterface
 {
-    /**
-     * @var float
-     */
-    protected $value;
-
     /**
      * @var string
      */
@@ -125,14 +121,6 @@ class Price implements OperandInterface
             $this->getCurrency(),
             (string) $this.' '.$operation.' '.(string) $right
         );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getValue()
-    {
-        return $this->value;
     }
 
     /**

@@ -63,7 +63,7 @@ class Operand implements OperationInterface
             $this->operand = $this->operand->getReference();
 
             if (!$this->operand) {
-                throw new \LogicException(sprintf('Operand can not be found in results set (%s).'), $this->operand);
+                throw new \LogicException(sprintf('Operand can not be found in results set (%s).', $this->operand));
             }
         }
 

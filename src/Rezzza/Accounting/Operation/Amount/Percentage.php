@@ -44,14 +44,14 @@ class Percentage implements OperandInterface
         }
 
         switch($operation) {
-            case Operation::SUB:
+            case Operation::REMOVE:
                 $value = $this->getValue() - $right->getValue();
                 break;
-            case Operation::SUM:
+            case Operation::APPEND:
                 $value = $this->getValue() + $right->getValue();
                 break;
             default:
-                throw new \LogicException(sprintf('Unsupported operation for Percentage operand (%s).'), $operation);
+                throw new \LogicException(sprintf('Unsupported operation for Percentage operand (%s).', $operation));
                 break;
         }
 

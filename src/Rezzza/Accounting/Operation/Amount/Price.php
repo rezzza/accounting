@@ -67,7 +67,7 @@ class Price implements OperandInterface
         } elseif ($right instanceof Percentage) {
             return $this->computeWithPercent($operation, $right);
         } else {
-            throw new \LogicException(sprintf('Unsupported operand (%s). Percentage operand can only be computed with Percentage or Price operands.'), get_class($right));
+            throw new \LogicException(sprintf('Unsupported operand (%s). Percentage operand can only be computed with Percentage or Price operands.', get_class($right)));
         }
     }
 
@@ -80,14 +80,14 @@ class Price implements OperandInterface
     protected function computeWithPrice($operation, Price $right)
     {
         switch($operation) {
-            case Operation::SUB:
+            case Operation::REMOVE:
                 $value = $this->round($this->getValue() - $right->getValue());
                 break;
-            case Operation::SUM:
+            case Operation::APPEND:
                 $value = $this->round($this->getValue() + $right->getValue());
                 break;
             default:
-                throw new \LogicException(sprintf('Unsupported operation for Price operand (%s).'), $operation);
+                throw new \LogicException(sprintf('Unsupported operation for Price operand (%s).', $operation));
                 break;
         }
 
@@ -108,14 +108,17 @@ class Price implements OperandInterface
     protected function computeWithPercent($operation, Percentage $right)
     {
         switch($operation) {
-            case Operation::SUB:
+            case Operation::DEDUCT:
                 $value = $this->round($this->getValue() / (1+($right->getValue() / 100)));
                 break;
-            case Operation::SUM:
+            case Operation::REMOVE:
+                $value = $this->round($this->getValue() - ($this->getValue() * ($right->getValue() / 100)));
+                break;
+            case Operation::APPEND:
                 $value = $this->round($this->getValue() + ($this->getValue() * ($right->getValue() / 100)));
                 break;
             default:
-                throw new \LogicException(sprintf('Unsupported operation for Price operand (%s).'), $operation);
+                throw new \LogicException(sprintf('Unsupported operation for Price operand (%s).', $operation));
                 break;
         }
 

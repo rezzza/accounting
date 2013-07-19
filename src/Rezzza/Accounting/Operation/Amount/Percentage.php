@@ -8,16 +8,12 @@ use Rezzza\Accounting\Operation\Operation;
 /**
  * Percentage
  *
+ * @uses AbstractOperand
  * @uses OperandInterface
  * @author Stephane PY <py.stephane1@gmail.com>
  */
-class Percentage implements OperandInterface
+class Percentage extends AbstractOperand implements OperandInterface
 {
-    /**
-     * @var float|int
-     */
-    protected $value;
-
     /**
      * @param float|int $value value
      */
@@ -56,13 +52,5 @@ class Percentage implements OperandInterface
         }
 
         return new Percentage($value);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getValue()
-    {
-        return $this->value;
     }
 }

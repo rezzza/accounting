@@ -54,6 +54,8 @@ class OperationSet implements OperationInterface
             $this->resultsSet = new OperationSetResult();
         }
 
+        $this->resultsSet->incrementLevel();
+
         foreach ($this->operations as $offset => $operation) {
             if ($operation->needsResultsSet()) {
                 $operation->setResultsSet($this->resultsSet);
@@ -66,8 +68,10 @@ class OperationSet implements OperationInterface
                 $offset = null;
             }
 
-            $this->resultsSet->add($result, $offset);
+            $this->resultsSet->add(clone $result, $offset);
         }
+
+        $this->resultsSet->decrementLevel();
 
         return $this->resultsSet->end();
     }

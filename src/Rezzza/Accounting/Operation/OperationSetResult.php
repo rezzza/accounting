@@ -15,6 +15,11 @@ class OperationSetResult
     protected $results = array();
 
     /**
+     * @var float
+     */
+    protected $level = 0;
+
+    /**
      * Render each results as string.
      */
     public function __toString()
@@ -22,7 +27,7 @@ class OperationSetResult
         $data = array();
 
         foreach ($this->results as $offset => $result) {
-            $data[] = sprintf('%s => %s', $offset, (string) $result);
+            $data[] = str_repeat('--', $result->getLevel()).sprintf('%s => %s', $offset, (string) $result);
         }
 
         return implode(chr(10), $data);
@@ -34,6 +39,8 @@ class OperationSetResult
      */
     public function add($result, $offset = null)
     {
+        $result->setLevel($this->level);
+
         if (null === $offset) {
             $this->results[] = $result;
         } else {
@@ -67,5 +74,21 @@ class OperationSetResult
     public function end()
     {
         return end($this->results);
+    }
+
+    /**
+     * Increment level when compilation of a OperationSet is started.
+     */
+    public function incrementLevel()
+    {
+        $this->level++;
+    }
+
+    /**
+     * Decrement level when compilation of a OperationSet is finished.
+     */
+    public function decrementLevel()
+    {
+        $this->level--;
     }
 }

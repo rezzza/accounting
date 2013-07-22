@@ -11,6 +11,7 @@
 namespace Rezzza\Accounting\Operation\Amount;
 
 use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\NumberFormatter\NumberFormatter;
 
 use Rezzza\Accounting\Operation\OperandInterface;
 use Rezzza\Accounting\Operation\Operation;
@@ -23,22 +24,31 @@ class Price extends AbstractOperand implements OperandInterface
     /**
      * @var string
      */
-    protected $currency;
+    protected $currency = 'EUR';
 
     /**
      * @var integer
      */
-    private $fractionDigits;
+    private $fractionDigits = 2;
+
+    /**
+     * @var formatter
+     */
+    private $formatter = null;
 
     /**
      * @param float  $value   value
      * @param string $currency currency
      */
-    public function __construct($value, $currency)
+    public function __construct($value, $currency = 'EUR', $formatter = null)
     {
         $this->value          = (float) $value;
         $this->currency       = (string) $currency;
         $this->fractionDigits = Intl::getCurrencyBundle()->getFractionDigits($currency);
+
+        if ($formatter) {
+            $this->setFormatter($formatter);
+        }
     }
 
     /**
@@ -46,7 +56,26 @@ class Price extends AbstractOperand implements OperandInterface
      */
     public function __toString()
     {
-        return $this->value.Intl::getCurrencyBundle()->getCurrencySymbol($this->currency);
+        return $this->getFormatter()->formatCurrency($this->getValue(), $this->getCurrency());
+    }
+
+    public function getFormatter()
+    {
+        if (null === $this->formatter) {
+            if (!Intl::isExtensionLoaded()) {
+                // FIXME: this number formatter don't have exactly the same behavior
+                $this->formatter = new NumberFormatter('en', NumberFormatter::CURRENCY);
+            } else {
+                $this->formatter = new \NumberFormatter(\Locale::getDefault(), \NumberFormatter::CURRENCY);
+            }
+        }
+
+        return $this->formatter;
+    }
+
+    public function setFormatter($formatter)
+    {
+        $this->formatter = $formatter;
     }
 
     /**
@@ -87,13 +116,13 @@ class Price extends AbstractOperand implements OperandInterface
                 $value = $this->round($this->getValue() - $right->getValue());
                 break;
             default:
-                throw new \LogicException(sprintf('Unsupported operation: "%s %s %s". Right operand cannot be a Price.', $this, $operation, $right));
+                throw new \LogicException(sprintf('Unsupported operator (%s) in operation: "%s %s %s".', $operation, $this, $operation, $right));
                 break;
         }
 
         return new Result(
-            new Price($value, $this->getCurrency()),
-            new Price($this->round($this->getValue() - $value), $this->getCurrency()),
+            new Price($value, $this->getCurrency(), $this->getFormatter()),
+            new Price($this->round($this->getValue() - $value), $this->getCurrency(), $this->getFormatter()),
             sprintf('%s %s %s', $this, $operation, $right)
         );
     }
@@ -123,8 +152,8 @@ class Price extends AbstractOperand implements OperandInterface
         }
 
         return new Result(
-            new Price($value, $this->getCurrency()),
-            new Price($this->round(abs($this->getValue() - $value)), $this->getCurrency()),
+            new Price($value, $this->getCurrency(), $this->getFormatter()),
+            new Price($this->round(abs($this->getValue() - $value)), $this->getCurrency(), $this->getFormatter()),
             sprintf('%s %s %s', $this, $operation, $right)
         );
     }

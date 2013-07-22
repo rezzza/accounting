@@ -10,10 +10,10 @@
 
 namespace Rezzza\Accounting\tests\unit\Constraints;
 
-use \mageekguy\atoum;
+use mageekguy\atoum;
 
-use \Symfony\Component\Validator\Validation;
-use \Rezzza\Accounting\Constraints\Vat;
+use Symfony\Component\Validator\Validation;
+use Rezzza\Accounting\Constraints\Vat;
 
 /**
  * @author Sébastien HOUZÉ <s@verylastroom.com>

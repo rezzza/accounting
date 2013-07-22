@@ -1,5 +1,5 @@
 <?php
-use \mageekguy\atoum;
+use mageekguy\atoum;
 
 $script->addTestAllDirectory(__DIR__.'/tests/unit');
 

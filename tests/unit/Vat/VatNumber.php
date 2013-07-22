@@ -10,10 +10,8 @@
 
 namespace Rezzza\Accounting\tests\unit\Vat;
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
-
 use \mageekguy\atoum;
-use Rezzza\Accounting\Vat\VatNumber as TestedVatNumber;
+use \Rezzza\Accounting\Vat\VatNumber as TestedVatNumber;
 
 /**
  * @author Sébastien HOUZÉ <s@verylastroom.com>

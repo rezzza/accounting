@@ -1,5 +1,7 @@
 # accounting
 
+[![Build Status](https://travis-ci.org/rezzza/accounting.png)](https://travis-ci.org/rezzza/accounting)
+
 Accounting lib is your modern comp(t)anion for general accounting in PHP.
 
 ## Validators

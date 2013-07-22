@@ -10,8 +10,8 @@
 
 namespace Rezzza\Accounting\tests\unit\Vat;
 
-use \mageekguy\atoum;
-use \Rezzza\Accounting\Vat\VatNumber as TestedVatNumber;
+use mageekguy\atoum;
+use Rezzza\Accounting\Vat\VatNumber as TestedVatNumber;
 
 /**
  * @author Sébastien HOUZÉ <s@verylastroom.com>

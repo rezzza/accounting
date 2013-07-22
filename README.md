@@ -1,6 +1,7 @@
 # accounting
+[![Version](https://poser.pugx.org/rezzza/accounting/version.png)](https://packagist.org/packages/rezzza/accounting)
 
-[![Build Status](https://travis-ci.org/rezzza/accounting.png)](https://travis-ci.org/rezzza/accounting)
+[![Build Status](https://travis-ci.org/rezzza/accounting.png?branch=master)](https://travis-ci.org/rezzza/accounting)
 
 Accounting lib is your modern comp(t)anion for general accounting in PHP.
 

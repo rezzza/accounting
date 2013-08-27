@@ -35,6 +35,10 @@ class OperationSet implements OperationInterface
             $this->add($operation, $k);
         }
 
+        if (null === $resultsSet) {
+            $resultsSet = new OperationSetResult();
+        }
+
         $this->setResultsSet($resultsSet);
     }
 

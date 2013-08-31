@@ -23,7 +23,7 @@ class Percentage extends AbstractOperand implements OperandInterface
      */
     public function __construct($value)
     {
-        $this->value = $value;
+        $this->value = (float) $value;
     }
 
     /**
@@ -40,7 +40,7 @@ class Percentage extends AbstractOperand implements OperandInterface
     public function compute($operation, OperandInterface $right)
     {
         if (!$right instanceof Percentage) {
-            throw new \LogicException(sprintf('Unsupported operand (%s). Percentage operand can only be computed with another Percentage operand.'), get_class($right));
+            throw new \LogicException(sprintf('Unsupported operand (%s). Percentage operand can only be computed with another Percentage operand.', get_class($right)));
         }
 
         switch($operation) {

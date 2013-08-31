@@ -15,7 +15,6 @@ use mageekguy\atoum;
 use Symfony\Component\Intl\Intl;
 
 use Rezzza\Accounting\Operation\Operation;
-use Rezzza\Accounting\Operation\Amount\Percentage;
 use Rezzza\Accounting\Operation\Amount\Price as TestedPrice;
 
 /**
@@ -61,7 +60,6 @@ class Price extends atoum\test
 
     public function testComputeWithPriceExceptions($operation, $left, $right)
     {
-        return;
         $this
             ->if($price = new TestedPrice($left))
                 ->assert
@@ -78,7 +76,7 @@ class Price extends atoum\test
     {
         $this
             ->if($price = new TestedPrice($left))
-                ->object($result = $price->compute($operation, new Percentage($right)))
+                ->object($result = $price->compute($operation, new \mock\Rezzza\Accounting\Operation\Amount\Percentage($right)))
                     ->isInstanceOf('\Rezzza\Accounting\Operation\Amount\Result')
                 ->float($result->getValue()->getValue())
                     ->isEqualTo($expectedResult)
@@ -89,6 +87,16 @@ class Price extends atoum\test
 
     public function testComputeWithPercentExceptions($operation, $left, $right)
     {
+        $this
+            ->if($price = new TestedPrice($left))
+                ->assert
+                    ->exception(function() use($price, $right, $operation) {
+                        $price->compute($operation, new TestedPrice($right));
+                    })
+                    ->isInstanceOf('\LogicException')
+                    ->message
+                        ->contains('Unsupported operator')
+        ;
     }
 
     protected function testConstructDataProvider()
@@ -163,21 +171,29 @@ class Price extends atoum\test
         );
     }
 
-    //public function testComputeWithPercent($operation, $left, $right, $expectedResult, $expectedResultComplement)
     protected function testComputeWithPercentDataProvider()
     {
         return array(
+            array(Operation::MAJORATE, 0, 10, (float)0, (float)0),
+            array(Operation::MINORATE, 0, 10, (float)0, (float)0),
+            array(Operation::EXONERATE, 0, 10, (float)0, (float)0),
+
             array(Operation::MAJORATE, 100, 10, (float)110, (float)10),
             array(Operation::MAJORATE, 100.54, 10, (float)110.59, (float)10.05),
-            // TODO: some more cases (MINORATE, EXONERATE)
+            array(Operation::MINORATE, 100, 10, (float)90, (float)10),
+            array(Operation::EXONERATE, 100, 10, (float)90.91, (float)9.09),
+
+            array(Operation::MAJORATE, -100, 10, (float)-110, (float)10),
+            array(Operation::MAJORATE, -100.54, 10, (float)-110.59, (float)10.05),
+            array(Operation::MINORATE, -100, 10, (float)-90, (float)10),
+            array(Operation::EXONERATE, -100, 10, (float)-90.91, (float)9.09),
         );
     }
 
-    //public function testComputeWithPercentExceptions($operation, $left, $right)
     protected function testComputeWithPercentExceptionsDataProvider()
     {
         return array(
-            // TODO: all cases
+            array('foo', 100, 10),
         );
     }
 }

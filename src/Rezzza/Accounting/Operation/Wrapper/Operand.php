@@ -10,7 +10,6 @@
 
 namespace Rezzza\Accounting\Operation\Wrapper;
 
-use Rezzza\Accounting\Operation\Amount\Price;
 use Rezzza\Accounting\Operation\Amount\Result;
 use Rezzza\Accounting\Operation\OperandInterface;
 use Rezzza\Accounting\Operation\OperationInterface;

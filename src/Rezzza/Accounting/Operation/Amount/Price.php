@@ -63,7 +63,7 @@ class Price extends AbstractOperand implements OperandInterface
     {
         if (null === $this->formatter) {
             if (!Intl::isExtensionLoaded()) {
-                // FIXME: this number formatter don't have exactly the same behavior
+                // This number formatter don't have exactly the same behavior
                 $this->formatter = new NumberFormatter('en', NumberFormatter::CURRENCY);
             } else {
                 $this->formatter = new \NumberFormatter(\Locale::getDefault(), \NumberFormatter::CURRENCY);

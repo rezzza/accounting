@@ -51,7 +51,7 @@ class OperationSetResult
      * @param OperandInterface $result result
      * @param string|integer   $offset offset
      */
-    public function add($result, $offset = null)
+    public function add(OperandInterface $result, $offset = null)
     {
         $result->setLevel($this->level);
 

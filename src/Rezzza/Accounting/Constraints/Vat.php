@@ -11,7 +11,6 @@
 namespace Rezzza\Accounting\Constraints;
 
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
  * @author Sébastien HOUZÉ <s@verylastroom.com>

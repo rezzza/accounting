@@ -109,7 +109,6 @@ class VatNumber
      */
     public function __toString()
     {
-        // TODO: VatNumberFormatter class to render
         return $this->getCountryCode().$this->getNumber();
     }
 

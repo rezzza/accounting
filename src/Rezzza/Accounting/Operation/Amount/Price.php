@@ -146,8 +146,7 @@ class Price extends AbstractOperand implements OperandInterface
                 $value = $this->round( $this->getValue() / (1 + ($right->getValue() / 100)) );
                 break;
             default:
-                throw new \LogicException(sprintf('Unsupported operation for Price operand "%s": "%s".', $this, $operation));
-                throw new \LogicException(sprintf('Unsupported operation: "%s %s %s". Right operand cannot be a Percentage.', $this, $operation, $right));
+                throw new \LogicException(sprintf('Unsupported operator (%s) in operation: "%s %s %s".', $operation, $this, $operation, $right));
                 break;
         }
 

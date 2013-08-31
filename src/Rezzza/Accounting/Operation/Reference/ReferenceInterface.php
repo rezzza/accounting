@@ -10,7 +10,6 @@
 
 namespace Rezzza\Accounting\Operation\Reference;
 
-use Rezzza\Accounting\Operation\OperandInterface;
 use Rezzza\Accounting\Operation\OperationSetResult;
 
 /**

@@ -97,3 +97,20 @@ price_excl_taxes: 100¥JP
 price_discounted: 100¥JP minorate by 10% => 90¥JP \ 10¥JP
 price_incl_taxes: 90¥JP majorate by 19.6% => 108¥JP \ 18¥JP
 ```
+
+## Twig extension
+
+You have to define this extension as service:
+
+```xml
+<service id="rezzza.accounting.twig.extension.iban" class="Rezzza\Accounting\Twig\Extension\IbanExtension" public="false">
+    <tag name="twig.extension" />
+</service>
+```
+
+```twig
+{{ "FR1337133713371337133713371"|iban }}
+{{ "FR133  7133713371337133713371"|iban }}
+
+{# will output FR13 3713 3713 3713 3713 3713 371 #}
+```

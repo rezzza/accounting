@@ -16,6 +16,7 @@
         "symfony/validator": "~2.3"
     },
     "suggest": {
+        "twig/twig": "For IbanExtension",
         "php-soap": "Mandatory for usage of ViesValidator"
     },
     "require-dev": {

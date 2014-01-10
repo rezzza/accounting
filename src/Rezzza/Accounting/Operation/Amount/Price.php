@@ -15,11 +15,17 @@ use Symfony\Component\Intl\NumberFormatter\NumberFormatter;
 
 use Rezzza\Accounting\Operation\OperandInterface;
 use Rezzza\Accounting\Operation\Operation;
+use Rezzza\Accounting\Price\MoneyInterface;
 
 /**
+ * Price
+ *
+ * @uses AbstractOperand
+ * @uses OperandInterface
+ * @uses MoneyInterface
  * @author Stephane PY <py.stephane1@gmail.com>
  */
-class Price extends AbstractOperand implements OperandInterface
+class Price extends AbstractOperand implements OperandInterface, MoneyInterface
 {
     /**
      * @var string

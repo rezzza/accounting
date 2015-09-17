@@ -1,7 +1,7 @@
 <?php
 use mageekguy\atoum;
 
-$script->addTestAllDirectory(__DIR__.'/tests/unit');
+$script->addTestsFromDirectory(__DIR__.'/tests/unit');
 
 $script
     ->addDefaultReport()

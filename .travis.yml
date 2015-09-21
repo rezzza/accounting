@@ -4,14 +4,14 @@ php:
     - 5.3
     - 5.4
     - 5.5
+    - 5.6
 
 before_script:
-    - wget http://getcomposer.org/composer.phar
-    - php composer.phar install --dev --prefer-source
-    - mkdir -p web/coverage
+    - mkdir -p web/code-coverage
+    - composer install --dev --prefer-source
 
 script:
-    - bin/atoum --test-all
+    - bin/atoum
 
 notifications:
     email:

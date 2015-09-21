@@ -15,6 +15,7 @@ use mageekguy\atoum;
 use Symfony\Component\Intl\Intl;
 
 use Rezzza\Accounting\Operation\Operation;
+use Symfony\Component\Intl\NumberFormatter\NumberFormatter;
 use Rezzza\Accounting\Operation\Amount\Price as TestedPrice;
 
 /**
@@ -43,6 +44,44 @@ class Price extends atoum\test
             ->string((string) $price)
             ->isIdenticalTo($expectedOutput)
             ;
+    }
+
+    public function testEquality(TestedPrice $priceA, TestedPrice $priceB, $equalityResult)
+    {
+        $this
+            ->when(
+                $result = ($priceA == $priceB)
+            )
+            ->then(
+                $this->boolean($result)->isIdenticalTo($equalityResult)
+            );
+    }
+
+    protected function testEqualityDataProvider()
+    {
+        return array(
+            // equal
+            array(new TestedPrice(1.0, 'EUR'), new TestedPrice(1.0, 'EUR'), true),
+            array(new TestedPrice(15.0, 'EUR'), new TestedPrice(15.0, 'EUR'), true),
+            array(new TestedPrice(1, 'USD'), new TestedPrice(1, 'USD'), true),
+                // with formatter
+            array(new TestedPrice(1.0, 'EUR', $this->buildFormatter('en')), new TestedPrice(1.0, 'EUR', $this->buildFormatter('fr')), true),
+            // not equal
+            array(new TestedPrice(1, 'USD'), new TestedPrice(1, 'EUR'), false),
+            array(new TestedPrice(1, 'USD'), new TestedPrice(2, 'USD'), false),
+        );
+    }
+
+    private function buildFormatter($locale)
+    {
+        if (!Intl::isExtensionLoaded()) {
+            // This number formatter don't have exactly the same behavior
+            $formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
+        } else {
+            $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
+        }
+
+        return $formatter;
     }
 
     public function testComputeWithPrice($operation, $left, $right, $expectedResult, $expectedResultComplement)

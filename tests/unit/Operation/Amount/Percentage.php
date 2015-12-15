@@ -27,7 +27,7 @@ class Percentage extends atoum\test
     {
         $this
             ->if($percentage = new TestedPercentage($value))
-                ->float($percentage->getValue())
+                ->phpFloat($percentage->getValue())
                     ->isIdenticalTo($expectedValue)
             ->if($level = $percentage->getLevel())
                 ->integer($level)
@@ -39,7 +39,7 @@ class Percentage extends atoum\test
     {
         $this
             ->if($percentage = new TestedPercentage($value))
-            ->string((string) $percentage)
+            ->phpString((string) $percentage)
             ->isIdenticalTo($expectedValue)
             ;
     }
@@ -50,9 +50,9 @@ class Percentage extends atoum\test
             ->if($percentage = new TestedPercentage($left))
                 ->object($result = $percentage->compute($operation, new TestedPercentage($right)))
                     ->isInstanceOf('\Rezzza\Accounting\Operation\Amount\Result')
-                ->float($result->getValue()->getValue())
+                ->phpFloat($result->getValue()->getValue())
                     ->isEqualTo($expectedResult)
-                ->float($result->getComplement()->getValue())
+                ->phpFloat($result->getComplement()->getValue())
                     ->isEqualTo($expectedResultComplement)
             ;
     }

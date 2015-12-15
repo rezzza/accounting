@@ -22,7 +22,7 @@ class VatNumber extends atoum\test
     {
         $this
             ->if($vatNumber = new TestedVatNumber($countryCode, $number))
-                ->string((string) $vatNumber)
+                ->phpString((string) $vatNumber)
                     ->isIdenticalTo($expectedOutput)
             ;
     }
@@ -31,7 +31,7 @@ class VatNumber extends atoum\test
     {
         $this
             ->if($vatNumber = new TestedVatNumber)
-                ->string((string) $vatNumber->fromString($input))
+                ->phpString((string) $vatNumber->fromString($input))
                     ->isIdenticalTo($expectedOutput)
             ;
     }
@@ -41,7 +41,7 @@ class VatNumber extends atoum\test
         $this
             ->if($vatNumber = new TestedVatNumber)
                 ->and($vatNumber->setCountryCode($countryCode))
-                ->string($vatNumber->getCountryCode())
+                ->phpString($vatNumber->getCountryCode())
                     ->isIdenticalTo($expectedCountryCode)
         ;
     }
@@ -78,7 +78,7 @@ class VatNumber extends atoum\test
         $this
             ->if($vatNumber = new TestedVatNumber)
                 ->and($vatNumber->setNumber($number))
-                ->string($vatNumber->getNumber())
+                ->phpString($vatNumber->getNumber())
                     ->isIdenticalTo($expectedNumber)
         ;
     }

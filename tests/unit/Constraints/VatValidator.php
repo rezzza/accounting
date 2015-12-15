@@ -24,7 +24,7 @@ class VatValidator extends atoum\test
     {
         $this
             ->if($validator = Validation::createValidator())
-            ->object(($validator->validateValue($number, new Vat)))
+            ->object(($validator->validate($number, new Vat)))
             ->isInstanceOf('Symfony\Component\Validator\ConstraintViolationList')
             ->hasSize(0)
             ;
@@ -34,7 +34,7 @@ class VatValidator extends atoum\test
     {
         $this
             ->if($validator = Validation::createValidator())
-            ->object(($validator->validateValue($number, new Vat)))
+            ->object(($validator->validate($number, new Vat)))
             ->isInstanceOf('Symfony\Component\Validator\ConstraintViolationList')
             ->hasSize(1)
             ;

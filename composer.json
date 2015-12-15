@@ -20,7 +20,7 @@
         "php-soap": "Mandatory for usage of ViesValidator"
     },
     "require-dev": {
-        "atoum/atoum": "*@dev"
+        "atoum/atoum": "~1.0|~2.0"
     },
     "autoload":     {
         "psr-0": {

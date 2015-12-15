@@ -27,9 +27,9 @@ class Price extends atoum\test
     {
         $this
             ->if($price = new TestedPrice($value, $currencyCode))
-                ->float($price->getValue())
+                ->phpFloat($price->getValue())
                     ->isIdenticalTo($expectedValue)
-                ->string($price->getCurrency())
+                ->phpString($price->getCurrency())
                     ->isIdenticalTo($expectedCurrencyCode)
             ;
     }
@@ -41,7 +41,7 @@ class Price extends atoum\test
         }
         $this
             ->if($price = new TestedPrice($value, $currencyCode))
-            ->string((string) $price)
+            ->phpString((string) $price)
             ->isIdenticalTo($expectedOutput)
             ;
     }
@@ -90,9 +90,9 @@ class Price extends atoum\test
             ->if($price = new TestedPrice($left))
                 ->object($result = $price->compute($operation, new TestedPrice($right)))
                     ->isInstanceOf('\Rezzza\Accounting\Operation\Amount\Result')
-                ->float($result->getValue()->getValue())
+                ->phpFloat($result->getValue()->getValue())
                     ->isEqualTo($expectedResult)
-                ->float($result->getComplement()->getValue())
+                ->phpFloat($result->getComplement()->getValue())
                     ->isEqualTo($expectedResultComplement)
             ;
     }
@@ -117,9 +117,9 @@ class Price extends atoum\test
             ->if($price = new TestedPrice($left))
                 ->object($result = $price->compute($operation, new \mock\Rezzza\Accounting\Operation\Amount\Percentage($right)))
                     ->isInstanceOf('\Rezzza\Accounting\Operation\Amount\Result')
-                ->float($result->getValue()->getValue())
+                ->phpFloat($result->getValue()->getValue())
                     ->isEqualTo($expectedResult)
-                ->float($result->getComplement()->getValue())
+                ->phpFloat($result->getComplement()->getValue())
                     ->isEqualTo($expectedResultComplement)
             ;
     }

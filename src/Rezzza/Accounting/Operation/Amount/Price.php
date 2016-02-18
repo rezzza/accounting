@@ -49,7 +49,7 @@ class Price extends AbstractOperand implements OperandInterface, MoneyInterface
     public function __construct($value, $currency = 'EUR', $formatter = null)
     {
         $this->value          = (float) $value;
-        $this->currency       = (string) $currency;
+        $this->currency       = strtoupper((string) $currency);
         $this->fractionDigits = Intl::getCurrencyBundle()->getFractionDigits($currency);
 
         if ($formatter) {

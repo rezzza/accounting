@@ -62,6 +62,7 @@ class Price extends atoum\test
         return array(
             // equal
             array(new TestedPrice(1.0, 'EUR'), new TestedPrice(1.0, 'EUR'), true),
+            array(new TestedPrice(1.0, 'eur'), new TestedPrice(1.0, 'EUR'), true),
             array(new TestedPrice(15.0, 'EUR'), new TestedPrice(15.0, 'EUR'), true),
             array(new TestedPrice(1, 'USD'), new TestedPrice(1, 'USD'), true),
                 // with formatter
